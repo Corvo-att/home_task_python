@@ -1,22 +1,23 @@
 # Home Task 1 : Control Structures and Functions
 import datetime
 def calc_total_price():
-    global item_list
+    global item_list,qty
     total_price = 0.0
 
     for i, key in enumerate(item_list):
-        total_price += item_list[key] * (1 + (tax[i] / 100))  # To allow the user to input the number directly without having to worry about fractions
+        total_price += item_list[key] * (1 + (tax[i] / 100)) * qty[i]  # To allow the user to input the number directly without having to worry about fractions
 
     return total_price
 
 item_list = {}
+qty  = []
 tax  = []
 item = ""
 
 def collect_prices():
 
     global item_list
-    global tax
+    global tax,qty
     global item
     # Using Global Variables, so I can update and use them outside the function
 
@@ -34,9 +35,11 @@ def collect_prices():
     for key in item_list:
         rate = float(input(f"Enter the tax-rate for {key} \nInput:"))
         tax.append(rate)
-    # Then the user is asked for the tax rates
+        value = int(input(f"Enter the Quantity for {key} \nInput:"))
+        qty.append(value)
+    # Then the user is asked for the tax rates and Quantity
 
-    return # Just for show I know it does nothing and can be removed
+
 
 
 print("                                          \n")
@@ -45,6 +48,6 @@ print("______Welcome to Self-checkout Kiosk______\n")
 
 collect_prices()
 final_price = calc_total_price()
-print(f"Your Final Price is {final_price:.2f} after tax.\nThank you Please Come again!\nDate:{datetime.datetime.now().replace(microsecond=0)}")
+print(f"\nYour Final Price is {final_price:.2f} after tax.\nThank you Please Come again!\nDate:{datetime.datetime.now().replace(microsecond=0)}\n")
 
 
